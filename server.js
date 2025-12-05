@@ -6,7 +6,7 @@ const User = require("./Models/User");
 const AssessmentReview = require("./Models/AssessmentReview");
 const multer = require("multer");
 const XLSX = require("xlsx");
-
+const cors = require("cors");
 const upload = multer({ dest: "uploads/" });
 
 const app = express();
@@ -25,11 +25,11 @@ app.post("/login", async (req, res) => {
     const rollNumber = Number(req.body.rollNumber);
     const password = Number(req.body.password);
 
-    console.log("Login Attempt:", rollNumber, password);
+    
 
     // Step 1: find user only by rollNumber
     const user = await User.findOne({ rollNumber });
-    console.log("User from DB:", user);
+    
 
     if (!user) {
       return res.json({
@@ -241,7 +241,7 @@ app.get("/students/:className", async (req, res) => {
 // POST teacher review
 app.post("/teacher/review", async (req, res) => {
   try {
-    console.log("Request body:", req.body);
+    
 
     const { rollNumber, fa, teacherReview } = req.body;
 
@@ -273,6 +273,12 @@ app.post("/teacher/review", async (req, res) => {
     res.status(500).json({ message: "Server Error" });
   }
 });
+
+app.use(cors({
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE"]
+}));
+
 
 
 
