@@ -6,7 +6,7 @@ const User = require("./Models/User");
 const AssessmentReview = require("./Models/AssessmentReview");
 const multer = require("multer");
 const XLSX = require("xlsx");
-const cors = require("cors");
+
 const upload = multer({ dest: "uploads/" });
 
 const app = express();
